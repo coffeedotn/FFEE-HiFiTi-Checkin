@@ -28,6 +28,26 @@ jobs:
         run: |
           node main.js
 
+      # --- 新增步骤：自动更新 README 以防止仓库休眠 ---
+      - name: Update README
+        if: ${{ success() }}
+        run: |
+          # 配置 Git 用户信息
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # 获取当前时间（UTC+8 北京时间）
+          CURRENT_TIME=$(date -u -d '8 hours' '+%Y-%m-%d %H:%M:%S')
+          
+          # 在 README.md 末尾追加打卡时间记录
+          echo "🟢 **自动保活打卡成功** - 时间: ${CURRENT_TIME} (UTC+8)" >> README.md
+          
+          # 提交并推送更改
+          git add README.md
+          git commit -m "chore: auto update checkin time to prevent repo hibernation"
+          git push
+      # ---------------------------------------------
+
       - name: Notify
         if: ${{ always() && env.TELEGRAM_TOKEN && env.TELEGRAM_TO }}
         uses: appleboy/telegram-action@master
@@ -41,4 +61,3 @@ jobs:
             ${{ steps.checkin.outputs.result }}
 
             任务详情
-
