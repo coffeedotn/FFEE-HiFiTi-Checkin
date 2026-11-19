@@ -40,7 +40,7 @@ jobs:
           CURRENT_TIME=$(date -u -d '8 hours' '+%Y-%m-%d %H:%M:%S')
           
           # 在 README.md 末尾追加打卡时间记录
-          echo "🟢 **自动保活打卡成功** - 时间: ${CURRENT_TIME} (UTC+8)" >> log.md
+          echo "🟢 **自动保活打卡成功** - 时间: ${CURRENT_TIME} (UTC+8)" >> .last_checkin
           
           # 提交并推送更改
           git add README.md
