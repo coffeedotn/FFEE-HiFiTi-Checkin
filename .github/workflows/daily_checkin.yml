@@ -3,7 +3,7 @@ name: Daily-HiFiTi-Checkin
 on:
   workflow_dispatch:
   schedule:
-    - cron: "16 16 * * *"
+    - cron: "16 15 * * *"
 
 jobs:
   checkin:
